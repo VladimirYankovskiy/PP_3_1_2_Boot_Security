@@ -2,13 +2,10 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Page User</title>
+    <title>Page New User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin}" th:object="${user}">
-    <label for="name">Id: </label>
-    <input type="text" th:field="*{id}" id="id" th:readonly/>
-    <br/>
+<form th:method="POST" th:action="@{/admin/users}" th:object="${user}">
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>

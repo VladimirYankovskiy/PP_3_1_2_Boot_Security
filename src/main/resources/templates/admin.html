@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page Admin</title>
+</head>
+<body>
+<table class="table-header">
+  <thead>
+  <tr>
+    <th scope="col">id</th>
+    <th scope="col">name</th>
+    <th scope="col">surname</th>
+    <th scope="col">role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each = "user: ${people} ">
+    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getId()}"></a></td>
+    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getName()}"></a></td>
+    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getSurname()}"></a></td>
+    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getRoles()}"></a></td>
+    <td><a th:href="@{/delete?id={id}(id=${user.getId()})}">Delete user</a></td>
+  </tr>
+  <form th:action="@{/logout}" method="post">
+    <input style="background: lightgray" type="submit" value="Exit">
+  </form>
+  </tbody>
+</table>
+<a href="/newUser">Create new user</a>
+</body>
+</html>
