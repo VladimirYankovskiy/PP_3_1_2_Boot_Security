@@ -19,11 +19,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     protected BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    public UserServiceImpl(UserDao userDao){//}, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public UserServiceImpl(UserDao userDao){
         this.userDao = userDao;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     @Override
     public List<User> allUsers() {
