@@ -7,6 +7,9 @@ import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
 import ru.kata.spring.boot_security.demo.models.User;
 
+import javax.persistence.Persistence;
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -32,10 +35,16 @@ public class AdminController {
         model.addAttribute("user",new User());
         return "/newUser";
     }
-    @PostMapping("/users")
+    @PostMapping
     public String saveUser(@ModelAttribute("user") User user
-            , @RequestParam(value = "roles") String[] roles) {
+            ,@RequestParam(value = "roles") String[] roles
+            ,@RequestParam(value = "name") String name
+            ,@RequestParam(value = "surname") String surname
+            ,@RequestParam(value = "id") Long id) {
         user.setRoles(roleService.getSetOfRoles(roles));
+        user.setName(name);
+        user.setSurname(surname);
+        user.setId(id);
         userService.saveUser(user);
         return "redirect:/admin";
     }

@@ -16,17 +16,17 @@
   </thead>
   <tbody>
   <tr th:each = "user: ${people} ">
-    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getId()}"></a></td>
-    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getName()}"></a></td>
-    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getSurname()}"></a></td>
-    <td><a th:href="@{/user?nameId={id}(id=${user.getId()})}" th:text="${user.getRoles()}"></a></td>
-    <td><a th:href="@{/delete?id={id}(id=${user.getId()})}">Delete user</a></td>
+    <td><a th:href="@{/admin/user?nameId={id}(id=${user.getId()})}" th:text="${user.getId()}"></a></td>
+    <td><a th:href="@{/admin/user?nameId={id}(id=${user.getId()})}" th:text="${user.getName()}"></a></td>
+    <td><a th:href="@{/admin/user?nameId={id}(id=${user.getId()})}" th:text="${user.getSurname()}"></a></td>
+    <td><a th:href="@{/admin/user?nameId={id}(id=${user.getId()})}" th:text="${user.getRoles()}"></a></td>
+    <td><a th:href="@{/admin/delete?id={id}(id=${user.getId()})}">Delete user</a></td>
   </tr>
   <form th:action="@{/logout}" method="post">
     <input style="background: lightgray" type="submit" value="Exit">
   </form>
   </tbody>
 </table>
-<a href="/newUser">Create new user</a>
+<a href="/admin/newUser">Create new user</a>
 </body>
 </html>

@@ -20,6 +20,19 @@ public class User implements UserDetails {
     private String surname;
     @Column
     private String password;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
     @Getter
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_roles",
@@ -78,8 +91,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
-    public UserDetails fromUser(User user) {
-        return new org.springframework.security.core.userdetails.User
-                (user.getUsername(), user.getPassword(), user.getRoles());
-    }
+
 }

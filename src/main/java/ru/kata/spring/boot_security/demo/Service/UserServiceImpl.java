@@ -16,9 +16,14 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserDao userDao;
+    protected BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    public UserServiceImpl(UserDao userDao){
+    public UserServiceImpl(UserDao userDao){//}, BCryptPasswordEncoder bCryptPasswordEncoder){
         this.userDao = userDao;
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
     @Override
     public List<User> allUsers() {
@@ -32,6 +37,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     public void saveUser(User user) {
         userDao.saveUser(user);
+        user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
     }
     @Override
     @Transactional
@@ -46,6 +52,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userDao.findByUsername(username);
+        User user = userDao.findByUsername(username);
+        return new org.springframework.security.core.userdetails.User
+                (user.getUsername(), user.getPassword(), user.getAuthorities());
     }
+
 }
