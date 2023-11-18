@@ -7,9 +7,6 @@ import ru.kata.spring.boot_security.demo.Service.RoleService;
 import ru.kata.spring.boot_security.demo.Service.UserService;
 import ru.kata.spring.boot_security.demo.models.User;
 
-import javax.persistence.Persistence;
-import java.security.Principal;
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -25,10 +22,10 @@ public class AdminController {
         model.addAttribute("people", userService.allUsers());
         return "/admin";
     }
-    @GetMapping("/user")
+    @GetMapping("/user_id")
     public String pageUser(Model model,@RequestParam(value = "nameId", required = false) Long id) {
         model.addAttribute("user",userService.showUser(id));
-        return "/user";
+        return "user_id";
     }
     @GetMapping("/newUser")
     public String newUser(Model model) {
