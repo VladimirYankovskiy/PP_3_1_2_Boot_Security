@@ -5,9 +5,9 @@
     <title>Page User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/user_id}" th:object="${user}">
     <label for="name">Id: </label>
-    <input type="text" th:field="*{id}" id="id" th:readonly/>
+    <input type="text" th:field="*{id}" id="id" readonly="readonly"/>
     <br/>
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
@@ -16,7 +16,7 @@
     <input type="text" th:field="*{surname}" id="surname"/>
     <br/>
     <label for="password">Password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
+    <input type="password" th:field="*{password}" id="password"/>
     <br/>
     <label>
         <select size="3" multiple="multiple" name="roles" id="roles">

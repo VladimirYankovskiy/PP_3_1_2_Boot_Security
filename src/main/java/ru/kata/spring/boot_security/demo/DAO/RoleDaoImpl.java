@@ -9,24 +9,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class RoleDaoImpl implements RoleDao{
+public class RoleDaoImpl implements RoleDao {
     @PersistenceContext
     private EntityManager entityManager;
+
     @Override
     public List<Role> getAllRoles() {
-        return entityManager.createQuery("select r from Role r",Role.class).getResultList();
+        return entityManager.createQuery("select r from Role r", Role.class).getResultList();
     }
 
     @Override
     public Role getRoleByName(String role) {
-        return entityManager.createQuery("SELECT r from Role r where r.role=:role",Role.class)
-                .setParameter("role",role).getSingleResult();
+        return entityManager.createQuery("SELECT r from Role r where r.role=:role", Role.class)
+                .setParameter("role", role).getSingleResult();
     }
 
     @Override
     public List<Role> getSetOfRoles(String[] roleNames) {
         List<Role> list = new ArrayList<>();
-        for (String role: roleNames) {
+        for (String role : roleNames) {
             list.add(getRoleByName(role));
         }
         return list;
@@ -46,7 +47,7 @@ public class RoleDaoImpl implements RoleDao{
 
     @Override
     public Role getById(Long id) {
-        return entityManager.createQuery("SELECT r from Role r where r.id=:id",Role.class)
-                .setParameter("id",id).getSingleResult();
+        return entityManager.createQuery("SELECT r from Role r where r.id=:id", Role.class)
+                .setParameter("id", id).getSingleResult();
     }
 }

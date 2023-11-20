@@ -6,9 +6,6 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/user}" th:object="${user}">
-    <label for="name">Id: </label>
-    <input type="text" th:field="*{id}" id="id" th:readonly/>
-    <br/>
     <label for="name">Name: </label>
     <input type="text" th:field="*{name}" id="name"/>
     <br/>
@@ -16,7 +13,7 @@
     <input type="text" th:field="*{surname}" id="surname"/>
     <br/>
     <label for="password">Password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
+    <input type="password" th:field="*{password}" id="password"/>
     <br/>
     <label>
         <select size="3" multiple="multiple" name="roles" id="roles">

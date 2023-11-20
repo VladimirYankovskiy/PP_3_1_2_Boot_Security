@@ -16,32 +16,46 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserDao userDao;
-    protected BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    private final BCryptPasswordEncoder passwordEncoder;
+
     @Autowired
-    public UserServiceImpl(UserDao userDao){
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder) {
         this.userDao = userDao;
+        this.passwordEncoder = passwordEncoder;
     }
+
     @Override
     public List<User> allUsers() {
         return userDao.allUsers();
     }
+
     @Override
     public User showUser(Long id) {
         return userDao.showUser(id);
     }
+
     @Override
     @Transactional
     public void saveUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.saveUser(user);
-        user.setPassword(bCryptPasswordEncoder().encode(user.getPassword()));
     }
+
+    @Override
+    @Transactional
+    public void updateUser(User user) {
+        if (!user.getPassword().equals(userDao.showUser(user.getId()).getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        userDao.updateUser(user);
+    }
+
     @Override
     @Transactional
     public void delUser(Long id) {
         userDao.delUser(id);
     }
+
     @Override
     public User findByUsername(String name) {
         return userDao.findByUsername(name);

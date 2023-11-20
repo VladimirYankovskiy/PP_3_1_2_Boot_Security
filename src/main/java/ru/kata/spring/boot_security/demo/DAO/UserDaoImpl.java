@@ -16,19 +16,24 @@ public class UserDaoImpl implements UserDao {
     public List<User> allUsers() {
         return entityManager.createQuery("from User", User.class).getResultList();
     }
+
     @Override
     public User showUser(Long id) {
-        return entityManager.find(User.class,id);
+        return entityManager.find(User.class, id);
     }
+
     @Override
     public void saveUser(User user) {
-        if(user.getId() != 0) {
-            entityManager.merge(user);
-        } else {
-            entityManager.persist(user);
-        }
+        entityManager.persist(user);
         entityManager.flush();
     }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.merge(user);
+        entityManager.flush();
+    }
+
     @Override
     public void delUser(Long id) {
         entityManager.remove(showUser(id));
@@ -38,7 +43,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User findByUsername(String name) {
         return entityManager.createQuery(
-                "SELECT user FROM User user join fetch  user.roles WHERE user.name =:name", User.class)
+                        "SELECT user FROM User user join fetch  user.roles WHERE user.name =:name", User.class)
                 .setParameter("name", name)
                 .getSingleResult();
     }
